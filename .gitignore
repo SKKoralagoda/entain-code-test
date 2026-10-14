@@ -1,0 +1,23 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+.DS_Store
+
+# Go build and testing artifacts
+*.test
+*.out
+coverage/
+
+# Compiled Go application
+/core/cmd/core/core
