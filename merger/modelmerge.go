@@ -61,6 +61,8 @@ func MergeEvent(ctx context.Context, left, right *model.Event) *model.Event {
 		result.Markets = mergedMarkets
 	}
 	result.EventTypeID = MergeOptionalString(ctx, left.EventTypeID, right.EventTypeID)
+	// Update Display if provided, otherwise keep the existing value.
+	result.Display = MergeOptionalBool(ctx, left.Display, right.Display)
 	return result
 }
 
@@ -187,5 +189,27 @@ func MergeOptionalInt64(ctx context.Context, left, right *model.OptionalInt64) *
 
 	result.Value = right.Value     // Copy primitive value from right, as non-pointers.
 	result.Deleted = right.Deleted // Copy primitive value from right, as non-pointers.
+	return result
+}
+
+// MergeOptionalBool combines the old and new Display values.
+func MergeOptionalBool(ctx context.Context, left, right *model.OptionalBool) *model.OptionalBool {
+	// left = Existing value stored in Redis.
+	// right = New value received from the Update API.
+
+	// No new value? Keep the old value.
+	if right == nil {
+		return left
+	}
+	// No old value? Use the new value.
+	if left == nil {
+		return right
+	}
+
+	// Update with the new value.
+	result := &model.OptionalBool{}
+
+	result.Value = right.Value
+	result.Deleted = right.Deleted
 	return result
 }
