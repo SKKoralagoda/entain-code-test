@@ -22,6 +22,16 @@ message GetSportEventResponse {
     SportEvent Event = 1;
 }
 
+// GetRacingEventRequest specifies the event ID to retrieve
+message GetRacingEventRequest {
+    string EventID = 1;
+}
+
+// GetRacingEventResponse returns the racing event details
+message GetRacingEventResponse {
+    RacingEvent Event = 1;
+}
+
 message SportEvent {
     string                  ID              = 1; 
     string                  Name            = 2;
@@ -36,9 +46,27 @@ message SportEvent {
     bool                    Display         = 12;
 }
 
+// racing event details returned by the API
+message RacingEvent {
+    string                  ID            = 1;
+    string                  Name          = 2;
+    string                  StartTime     = 3;
+    string                  BettingStatus = 4;
+    repeated model.Market   Markets       = 5;
+    string                  SportTypeID   = 6;
+    string                  RacingType    = 7;
+    string                  RaceName      = 8;
+    string                  Distance      = 9;
+    string                  Venue         = 10;
+    bool                    Display       = 11;
+}
+
 service Service {
     // Update updates an Event and runs the pipeline of transformations
     rpc Update(UpdateRequest) returns (UpdateResponse) {}
     // GetSportEvent retrieves a model.Event from the database and returns a core.SportEvent - this is a more UserConsumable representation of the model that is specific to sport events 
     rpc GetSportEvent(GetSportEventRequest) returns (GetSportEventResponse) {}
+
+    // GetRacingEvent retrieves a racing event
+    rpc GetRacingEvent(GetRacingEventRequest) returns (GetRacingEventResponse) {}
 }

@@ -119,3 +119,72 @@ Run all tests using:
 ```bash
 go test ./... -count=1
 ```
+
+
+## TASK 02
+Added support for Horse, Greyhound, and Harness racing events using a separate `RacingEvent` model and a new `GetRacingEvent` gRPC endpoint.
+
+### Behaviour
+- Racing events support three types: Horse, Greyhound, and Harness.
+- Racing-specific details include `RaceName`, `RacingType`, `Distance`, and `Venue`.
+- `GetRacingEvent` retrieves racing event details using the event ID.
+- Partial updates preserve existing racing information when fields are not provided.
+- The `Display` field controls event visibility, as implemented in Task 1.
+
+**Note:**
+- `SportTypeID` is a machine-readable identifier, such as `horse_racing`.
+- `RacingType` is a human-readable description, such as `Horse`.
+- `Distance` is measured in metres.
+- When `StartTime` is not provided, the API returns an empty value.
+
+### Example Update Request
+```json
+{
+  "Event": {
+    "ID": "brisbaneRace001",
+    "Name": {
+      "Value": "Brisbane Race 1"
+    },
+    "EventTypeID": {
+      "Value": "horse_racing"
+    },
+    "BettingStatus": {
+      "Value": "BettingOpen"
+    },
+    "Display": {
+      "Value": true
+    },
+    "RacingData": {
+      "RaceName": {
+        "Value": "Brisbane Racing Test"
+      },
+      "RacingType": {
+        "Value": "Horse"
+      },
+      "Distance": {
+        "Value": "1200"
+      },
+      "Venue": {
+        "Value": "Brisbane"
+      }
+    }
+  }
+}
+```
+
+### Example GetRacingEvent Request
+```json
+{
+  "EventID": "brisbaneRace001"
+}
+```
+
+### Testing
+- Manually tested Horse, Greyhound, and Harness racing events using Postman.
+- Added unit tests for racing data merging and response conversion.
+- Verified partial updates preserve existing racing details.
+
+Run all tests using:
+```bash
+go test ./... -count=1
+```

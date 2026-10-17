@@ -26,6 +26,7 @@ message Event {
     OptionalString          EventTypeID     = 6; 
     SportEvent              SportData       = 7;
     OptionalBool            Display         = 8;
+    RacingEvent             RacingData      = 9;
 }
 
 // SportEvent models event details that are specific to sports
@@ -34,6 +35,14 @@ message SportEvent {
     OptionalString Region   = 2; 
     OptionalString League   = 3; 
     OptionalString Round    = 4; 
+}
+
+// RacingEvent stores information specific to racing events
+message RacingEvent {
+    OptionalString RaceName   = 1;
+    OptionalString RacingType = 2;
+    OptionalInt64  Distance   = 3;
+    OptionalString Venue      = 4;
 }
 
 // Market models a market of betting options e.g Head to Head or Totals

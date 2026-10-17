@@ -7,6 +7,7 @@ import (
 	"git.neds.sh/technology/pricekinetics/tools/codetest/model"
 )
 
+// Task 01 Tests
 // TestMergeEventDisplay checks that Display updates correctly
 // without losing existing event information
 func TestMergeEventDisplay(t *testing.T) {
@@ -68,5 +69,63 @@ func TestMergeEventDisplayNotProvided(t *testing.T) {
 	// Check that Display remains unset
 	if result.Display != nil {
 		t.Error("Display should remain unset")
+	}
+}
+
+// Task 02 Tests
+// TestMergeRacingEvent checks that racing details update
+// without changing other existing racing information.
+func TestMergeRacingEvent(t *testing.T) {
+
+	// Test different racing types
+	tests := []struct {
+		name       string
+		racingType string
+		venue      string
+		distance   int64
+	}{
+		{"Horse racing", "Horse", "Brisbane", 1200},
+		{"Greyhound racing", "Greyhound", "Melbourne", 525},
+		{"Harness racing", "Harness", "Sydney", 1609},
+	}
+
+	// Run each test scenario
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+
+			// Existing racing details
+			existing := &model.RacingEvent{
+				RaceName:   &model.OptionalString{Value: tt.name},
+				RacingType: &model.OptionalString{Value: tt.racingType},
+				Distance:   &model.OptionalInt64{Value: tt.distance},
+				Venue:      &model.OptionalString{Value: tt.venue},
+			}
+
+			// Update only the distance
+			incoming := &model.RacingEvent{
+				Distance: &model.OptionalInt64{Value: 2000},
+			}
+
+			// Merge existing and incoming racing data
+			result := MergeRacingEvent(context.Background(), existing, incoming)
+
+			// Check the distance was updated
+			if result.GetDistance().GetValue() != 2000 {
+				t.Errorf("Expected Distance 2000, got %d", result.GetDistance().GetValue())
+			}
+
+			// Check other fields remain unchanged
+			if result.GetRaceName().GetValue() != tt.name {
+				t.Error("RaceName was changed")
+			}
+
+			if result.GetRacingType().GetValue() != tt.racingType {
+				t.Error("RacingType was changed")
+			}
+
+			if result.GetVenue().GetValue() != tt.venue {
+				t.Error("Venue was changed")
+			}
+		})
 	}
 }

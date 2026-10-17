@@ -54,6 +54,7 @@ func MergeEvent(ctx context.Context, left, right *model.Event) *model.Event {
 	result.StartTime = MergeOptionalInt64(ctx, left.StartTime, right.StartTime)
 	result.BettingStatus = MergeOptionalBettingStatus(ctx, left.BettingStatus, right.BettingStatus)
 	result.SportData = MergeSportEvent(ctx, left.SportData, right.SportData)
+	result.RacingData = MergeRacingEvent(ctx, left.RacingData, right.RacingData) // Merge racing event details
 
 	// Generate the difference for Markets with a slice of Market
 	mergedMarkets := MergeMarketSlice(ctx, left.Markets, right.Markets)
@@ -84,6 +85,28 @@ func MergeSportEvent(ctx context.Context, left, right *model.SportEvent) *model.
 	result.Region = MergeOptionalString(ctx, left.Region, right.Region)
 	result.League = MergeOptionalString(ctx, left.League, right.League)
 	result.Round = MergeOptionalString(ctx, left.Round, right.Round)
+	return result
+}
+
+// MergeRacingEvent combines existing racing details with new updates
+func MergeRacingEvent(ctx context.Context, left, right *model.RacingEvent) *model.RacingEvent {
+	// Keep existing data if no update is provided
+	if right == nil {
+		return left
+	}
+
+	// Use new data if no existing data is available
+	if left == nil {
+		return right
+	}
+
+	// Merge racing fields
+	result := &model.RacingEvent{}
+
+	result.RaceName = MergeOptionalString(ctx, left.RaceName, right.RaceName)
+	result.RacingType = MergeOptionalString(ctx, left.RacingType, right.RacingType)
+	result.Distance = MergeOptionalInt64(ctx, left.Distance, right.Distance)
+	result.Venue = MergeOptionalString(ctx, left.Venue, right.Venue)
 	return result
 }
 
