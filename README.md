@@ -85,3 +85,37 @@ You can then use postman to hit `localhost:50051` with a grpc request, load in t
 Switch to the GetSportEvent rpc and look up the event you just created `{"EventID": "testEvent"}`
 
 There are some example payloads in the `./exampledata` folder that you can use to send to the `update` RPC
+
+
+# Sasith Koralagoda
+
+## TASK 01
+Added a `Display` field to control whether an event should be displayed or hidden.
+
+### Behaviour
+- `Display: true` - Event is visible.
+- `Display: false` - Event is hidden.
+- When creating an event without `Display`, it is hidden by default (`false`).
+- When updating an event without `Display`, the existing visibility remains unchanged.
+- When updating with `Display: true` or `Display: false`, the visibility is updated accordingly.
+
+**Note:** If `Display` is not provided, it remains `nil` in the event model, but `GetSportEvent` returns `false` (hidden) by default.
+
+### Example Update Request
+```json
+{
+  "Event": {
+    "ID": "testEvent",
+    "Display": {
+      "Value": true
+    }
+  }
+}
+```
+
+### Testing
+Implemented unit tests for visibility merging and response conversion.
+Run all tests using:
+```bash
+go test ./... -count=1
+```
