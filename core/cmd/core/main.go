@@ -38,7 +38,8 @@ func main() {
 	app.Action = func(_ *cli.Context) error {
 		log.SetFormatter(&log.TextFormatter{})
 
-		repo, err := repository.NewRedisRepository(context.Background(), "localhost:6379", "")
+		// Connect to the MongoDB database
+		repo, err := repository.NewMongoRepository(context.Background(), "mongodb://localhost:27018")
 		if err != nil {
 			return err
 		}

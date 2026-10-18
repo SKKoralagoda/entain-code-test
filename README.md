@@ -247,3 +247,42 @@ Run all tests using:
 ```bash
 go test ./... -v -count=1
 ```
+
+
+
+## TASK 04
+Replaced Redis with MongoDB as the event storage database.
+
+### Behaviour
+- Events are stored in MongoDB instead of Redis.
+- `UpdateEvent` creates or replaces an event in MongoDB.
+- `GetEventByID` retrieves an event using its ID.
+
+**Note:**
+- MongoDB stores events in the `codetest` database and `events` collection.
+- Each event uses its ID as the MongoDB document `_id`.
+- Event data is stored as JSON within the MongoDB document.
+- The local MongoDB connection uses `mongodb://localhost:27018`.
+
+### Docker Setup
+Start MongoDB using:
+```bash
+docker compose up -d
+```
+
+Verify MongoDB is running:
+```bash
+docker exec codetest-mongodb mongosh --quiet --eval 'db.adminCommand({ping: 1})'
+```
+
+### Testing
+- Updated repository and service integration tests to use MongoDB.
+- Tested event creation and retrieval through Postman.
+- Verified event data is stored correctly in MongoDB.
+- Confirmed existing functionality from Tasks 1, 2 and 3 still works.
+- Updated Go dependencies and vendor files.
+
+Run all tests using:
+```bash
+go test ./... -count=1
+```

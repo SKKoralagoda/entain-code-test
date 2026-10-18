@@ -97,7 +97,7 @@ func (host *Service) GetSportEvent(ctx context.Context, req *core.GetSportEventR
 
 // GetRacingEvent retrieves a racing event from the database
 func (host *Service) GetRacingEvent(ctx context.Context, req *core.GetRacingEventRequest) (*core.GetRacingEventResponse, error) {
-	// Get the event from Redis using its ID
+	// Get the event from the database using its ID
 	existing, err := host.Upstreams.Repo.GetEventByID(ctx, req.GetEventID())
 	if err != nil {
 		logrus.WithError(err).Error("GetRacingEvent: failed to retrieve event")
