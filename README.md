@@ -249,7 +249,6 @@ go test ./... -v -count=1
 ```
 
 
-
 ## TASK 04
 Replaced Redis with MongoDB as the event storage database.
 
@@ -286,3 +285,36 @@ Run all tests using:
 ```bash
 go test ./... -count=1
 ```
+
+
+## TASK 05
+Added a `SearchEvents` gRPC endpoint to search events by date, betting status, and display visibility.
+
+### Behaviour
+- Search by `Date`, `BettingStatus`, and/or `Display`.
+- All filters are optional and can be combined using AND logic.
+- Date uses `StartTime` in UTC (`YYYY-MM-DD`).
+- No filters returns all events; no matches returns an empty list.
+
+**Note:**
+- Missing `Display` defaults to `false` (hidden).
+- Missing `BettingStatus` defaults to `BettingUnknown`.
+- Events without `StartTime` are excluded from date searches.
+
+### Testing
+- Tested individual filters and all filter combinations using Postman.
+- Verified searches with no matching events return an empty list.
+- Added automated tests for individual and combined filters.
+- Tested `Display: true`, `Display: false`, and invalid date formats.
+
+Run all tests using:
+
+```bash
+go test ./... -v -count=1
+```
+
+
+## Submission Contents
+- **Source Code:** Go implementation of Tasks 1–5, including unit tests.
+- **README:** Implementation details and testing instructions.
+- **Postman Collection:** Exported JSON collection containing API requests for testing all five tasks.

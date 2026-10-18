@@ -4,6 +4,7 @@ package service
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"git.neds.sh/technology/pricekinetics/tools/codetest/core"
 	"git.neds.sh/technology/pricekinetics/tools/codetest/core/repository"
@@ -114,6 +115,55 @@ func (host *Service) GetRacingEvent(ctx context.Context, req *core.GetRacingEven
 	result := &core.RacingEvent{}
 	result.ConvertFromModel(existing)
 	resp.Event = result
+
+	return resp, nil
+}
+
+// SearchEvents returns events matching the provided filters.
+func (host *Service) SearchEvents(ctx context.Context, req *core.SearchEventsRequest) (*core.SearchEventsResponse, error) {
+	// Validate the date before searching.
+	if req.Date != nil {
+		if _, err := time.Parse("2006-01-02", req.GetDate()); err != nil {
+			return nil, fmt.Errorf("invalid date: use YYYY-MM-DD format")
+		}
+	}
+
+	// Retrieve stored events from MongoDB.
+	events, err := host.Upstreams.Repo.SearchEvents(ctx)
+	if err != nil {
+		logrus.WithError(err).Error("SearchEvents: failed to retrieve events")
+		return nil, err
+	}
+
+	resp := &core.SearchEventsResponse{}
+
+	// Check each event against the provided filters.
+	for _, event := range events {
+		// Match the event date in UTC.
+		if req.Date != nil {
+			if event.GetStartTime() == nil || event.GetStartTime().GetDeleted() {
+				continue
+			}
+
+			eventDate := time.Unix(0, event.GetStartTime().GetValue()).UTC().Format("2006-01-02")
+			if eventDate != req.GetDate() {
+				continue
+			}
+		}
+
+		// Match betting status.
+		if req.BettingStatus != nil && event.GetBettingStatus().GetValue() != req.GetBettingStatus() {
+			continue
+		}
+
+		// Match event visibility.
+		if req.Display != nil && event.GetDisplay().GetValue() != req.GetDisplay() {
+			continue
+		}
+
+		// Add matching events to the response.
+		resp.Events = append(resp.Events, event)
+	}
 
 	return resp, nil
 }

@@ -61,6 +61,20 @@ message RacingEvent {
     bool                    Display       = 11;
 }
 
+// SearchEventsRequest allows searching with one or more optional filters.
+message SearchEventsRequest {
+    // Optional fields allow searching without requiring all filters.
+    // They also distinguish false or zero values from missing filters.
+    optional string Date = 1;
+    optional model.BettingStatus BettingStatus = 2;
+    optional bool Display = 3;
+}
+
+// SearchEventsResponse returns matching events.
+message SearchEventsResponse {
+    repeated model.Event Events = 1;
+}
+
 service Service {
     // Update updates an Event and runs the pipeline of transformations
     rpc Update(UpdateRequest) returns (UpdateResponse) {}
@@ -69,4 +83,6 @@ service Service {
 
     // GetRacingEvent retrieves a racing event
     rpc GetRacingEvent(GetRacingEventRequest) returns (GetRacingEventResponse) {}
+    // SearchEvents retrieves events matching the provided filters.
+    rpc SearchEvents(SearchEventsRequest) returns (SearchEventsResponse) {}
 }

@@ -273,7 +273,7 @@ func (b0 GetSportEventResponse_builder) Build() *GetSportEventResponse {
 	return m0
 }
 
-// GetRacingEventRequest specifies the event ID to retrieve.
+// GetRacingEventRequest specifies the event ID to retrieve
 type GetRacingEventRequest struct {
 	state         protoimpl.MessageState `protogen:"hybrid.v1"`
 	EventID       string                 `protobuf:"bytes,1,opt,name=EventID,proto3" json:"EventID,omitempty"`
@@ -331,7 +331,7 @@ func (b0 GetRacingEventRequest_builder) Build() *GetRacingEventRequest {
 	return m0
 }
 
-// GetRacingEventResponse returns the racing event details.
+// GetRacingEventResponse returns the racing event details
 type GetRacingEventResponse struct {
 	state         protoimpl.MessageState `protogen:"hybrid.v1"`
 	Event         *RacingEvent           `protobuf:"bytes,1,opt,name=Event,proto3" json:"Event,omitempty"`
@@ -597,7 +597,7 @@ func (b0 SportEvent_builder) Build() *SportEvent {
 	return m0
 }
 
-// RacingEvent represents racing event details returned by the API.
+// racing event details returned by the API
 type RacingEvent struct {
 	state         protoimpl.MessageState `protogen:"hybrid.v1"`
 	ID            string                 `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
@@ -795,6 +795,187 @@ func (b0 RacingEvent_builder) Build() *RacingEvent {
 	return m0
 }
 
+// SearchEventsRequest allows searching with one or more optional filters.
+type SearchEventsRequest struct {
+	state protoimpl.MessageState `protogen:"hybrid.v1"`
+	// Optional fields allow searching without requiring all filters.
+	// They also distinguish false or zero values from missing filters.
+	Date          *string              `protobuf:"bytes,1,opt,name=Date,proto3,oneof" json:"Date,omitempty"`
+	BettingStatus *model.BettingStatus `protobuf:"varint,2,opt,name=BettingStatus,proto3,enum=model.BettingStatus,oneof" json:"BettingStatus,omitempty"`
+	Display       *bool                `protobuf:"varint,3,opt,name=Display,proto3,oneof" json:"Display,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchEventsRequest) Reset() {
+	*x = SearchEventsRequest{}
+	mi := &file_core_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchEventsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchEventsRequest) ProtoMessage() {}
+
+func (x *SearchEventsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *SearchEventsRequest) GetDate() string {
+	if x != nil && x.Date != nil {
+		return *x.Date
+	}
+	return ""
+}
+
+func (x *SearchEventsRequest) GetBettingStatus() model.BettingStatus {
+	if x != nil && x.BettingStatus != nil {
+		return *x.BettingStatus
+	}
+	return model.BettingStatus(0)
+}
+
+func (x *SearchEventsRequest) GetDisplay() bool {
+	if x != nil && x.Display != nil {
+		return *x.Display
+	}
+	return false
+}
+
+func (x *SearchEventsRequest) SetDate(v string) {
+	x.Date = &v
+}
+
+func (x *SearchEventsRequest) SetBettingStatus(v model.BettingStatus) {
+	x.BettingStatus = &v
+}
+
+func (x *SearchEventsRequest) SetDisplay(v bool) {
+	x.Display = &v
+}
+
+func (x *SearchEventsRequest) HasDate() bool {
+	if x == nil {
+		return false
+	}
+	return x.Date != nil
+}
+
+func (x *SearchEventsRequest) HasBettingStatus() bool {
+	if x == nil {
+		return false
+	}
+	return x.BettingStatus != nil
+}
+
+func (x *SearchEventsRequest) HasDisplay() bool {
+	if x == nil {
+		return false
+	}
+	return x.Display != nil
+}
+
+func (x *SearchEventsRequest) ClearDate() {
+	x.Date = nil
+}
+
+func (x *SearchEventsRequest) ClearBettingStatus() {
+	x.BettingStatus = nil
+}
+
+func (x *SearchEventsRequest) ClearDisplay() {
+	x.Display = nil
+}
+
+type SearchEventsRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Optional fields allow searching without requiring all filters.
+	// They also distinguish false or zero values from missing filters.
+	Date          *string
+	BettingStatus *model.BettingStatus
+	Display       *bool
+}
+
+func (b0 SearchEventsRequest_builder) Build() *SearchEventsRequest {
+	m0 := &SearchEventsRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.Date = b.Date
+	x.BettingStatus = b.BettingStatus
+	x.Display = b.Display
+	return m0
+}
+
+// SearchEventsResponse returns matching events.
+type SearchEventsResponse struct {
+	state         protoimpl.MessageState `protogen:"hybrid.v1"`
+	Events        []*model.Event         `protobuf:"bytes,1,rep,name=Events,proto3" json:"Events,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SearchEventsResponse) Reset() {
+	*x = SearchEventsResponse{}
+	mi := &file_core_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SearchEventsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchEventsResponse) ProtoMessage() {}
+
+func (x *SearchEventsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_core_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *SearchEventsResponse) GetEvents() []*model.Event {
+	if x != nil {
+		return x.Events
+	}
+	return nil
+}
+
+func (x *SearchEventsResponse) SetEvents(v []*model.Event) {
+	x.Events = v
+}
+
+type SearchEventsResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	Events []*model.Event
+}
+
+func (b0 SearchEventsResponse_builder) Build() *SearchEventsResponse {
+	m0 := &SearchEventsResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.Events = b.Events
+	return m0
+}
+
 var File_core_proto protoreflect.FileDescriptor
 
 const file_core_proto_rawDesc = "" +
@@ -840,13 +1021,24 @@ const file_core_proto_rawDesc = "" +
 	"\bDistance\x18\t \x01(\tR\bDistance\x12\x14\n" +
 	"\x05Venue\x18\n" +
 	" \x01(\tR\x05Venue\x12\x18\n" +
-	"\aDisplay\x18\v \x01(\bR\aDisplay2\xdb\x01\n" +
+	"\aDisplay\x18\v \x01(\bR\aDisplay\"\xb5\x01\n" +
+	"\x13SearchEventsRequest\x12\x17\n" +
+	"\x04Date\x18\x01 \x01(\tH\x00R\x04Date\x88\x01\x01\x12?\n" +
+	"\rBettingStatus\x18\x02 \x01(\x0e2\x14.model.BettingStatusH\x01R\rBettingStatus\x88\x01\x01\x12\x1d\n" +
+	"\aDisplay\x18\x03 \x01(\bH\x02R\aDisplay\x88\x01\x01B\a\n" +
+	"\x05_DateB\x10\n" +
+	"\x0e_BettingStatusB\n" +
+	"\n" +
+	"\b_Display\"<\n" +
+	"\x14SearchEventsResponse\x12$\n" +
+	"\x06Events\x18\x01 \x03(\v2\f.model.EventR\x06Events2\xa4\x02\n" +
 	"\aService\x125\n" +
 	"\x06Update\x12\x13.core.UpdateRequest\x1a\x14.core.UpdateResponse\"\x00\x12J\n" +
 	"\rGetSportEvent\x12\x1a.core.GetSportEventRequest\x1a\x1b.core.GetSportEventResponse\"\x00\x12M\n" +
-	"\x0eGetRacingEvent\x12\x1b.core.GetRacingEventRequest\x1a\x1c.core.GetRacingEventResponse\"\x00B:Z8git.neds.sh/technology/pricekinetics/tools/codetest/coreb\x06proto3"
+	"\x0eGetRacingEvent\x12\x1b.core.GetRacingEventRequest\x1a\x1c.core.GetRacingEventResponse\"\x00\x12G\n" +
+	"\fSearchEvents\x12\x19.core.SearchEventsRequest\x1a\x1a.core.SearchEventsResponse\"\x00B:Z8git.neds.sh/technology/pricekinetics/tools/codetest/coreb\x06proto3"
 
-var file_core_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_core_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_core_proto_goTypes = []any{
 	(*UpdateRequest)(nil),          // 0: core.UpdateRequest
 	(*UpdateResponse)(nil),         // 1: core.UpdateResponse
@@ -856,26 +1048,33 @@ var file_core_proto_goTypes = []any{
 	(*GetRacingEventResponse)(nil), // 5: core.GetRacingEventResponse
 	(*SportEvent)(nil),             // 6: core.SportEvent
 	(*RacingEvent)(nil),            // 7: core.RacingEvent
-	(*model.Event)(nil),            // 8: model.Event
-	(*model.Market)(nil),           // 9: model.Market
+	(*SearchEventsRequest)(nil),    // 8: core.SearchEventsRequest
+	(*SearchEventsResponse)(nil),   // 9: core.SearchEventsResponse
+	(*model.Event)(nil),            // 10: model.Event
+	(*model.Market)(nil),           // 11: model.Market
+	(model.BettingStatus)(0),       // 12: model.BettingStatus
 }
 var file_core_proto_depIdxs = []int32{
-	8, // 0: core.UpdateRequest.Event:type_name -> model.Event
-	6, // 1: core.GetSportEventResponse.Event:type_name -> core.SportEvent
-	7, // 2: core.GetRacingEventResponse.Event:type_name -> core.RacingEvent
-	9, // 3: core.SportEvent.Markets:type_name -> model.Market
-	9, // 4: core.RacingEvent.Markets:type_name -> model.Market
-	0, // 5: core.Service.Update:input_type -> core.UpdateRequest
-	2, // 6: core.Service.GetSportEvent:input_type -> core.GetSportEventRequest
-	4, // 7: core.Service.GetRacingEvent:input_type -> core.GetRacingEventRequest
-	1, // 8: core.Service.Update:output_type -> core.UpdateResponse
-	3, // 9: core.Service.GetSportEvent:output_type -> core.GetSportEventResponse
-	5, // 10: core.Service.GetRacingEvent:output_type -> core.GetRacingEventResponse
-	8, // [8:11] is the sub-list for method output_type
-	5, // [5:8] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	10, // 0: core.UpdateRequest.Event:type_name -> model.Event
+	6,  // 1: core.GetSportEventResponse.Event:type_name -> core.SportEvent
+	7,  // 2: core.GetRacingEventResponse.Event:type_name -> core.RacingEvent
+	11, // 3: core.SportEvent.Markets:type_name -> model.Market
+	11, // 4: core.RacingEvent.Markets:type_name -> model.Market
+	12, // 5: core.SearchEventsRequest.BettingStatus:type_name -> model.BettingStatus
+	10, // 6: core.SearchEventsResponse.Events:type_name -> model.Event
+	0,  // 7: core.Service.Update:input_type -> core.UpdateRequest
+	2,  // 8: core.Service.GetSportEvent:input_type -> core.GetSportEventRequest
+	4,  // 9: core.Service.GetRacingEvent:input_type -> core.GetRacingEventRequest
+	8,  // 10: core.Service.SearchEvents:input_type -> core.SearchEventsRequest
+	1,  // 11: core.Service.Update:output_type -> core.UpdateResponse
+	3,  // 12: core.Service.GetSportEvent:output_type -> core.GetSportEventResponse
+	5,  // 13: core.Service.GetRacingEvent:output_type -> core.GetRacingEventResponse
+	9,  // 14: core.Service.SearchEvents:output_type -> core.SearchEventsResponse
+	11, // [11:15] is the sub-list for method output_type
+	7,  // [7:11] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_core_proto_init() }
@@ -883,13 +1082,14 @@ func file_core_proto_init() {
 	if File_core_proto != nil {
 		return
 	}
+	file_core_proto_msgTypes[8].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_core_proto_rawDesc), len(file_core_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
