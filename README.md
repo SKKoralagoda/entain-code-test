@@ -318,3 +318,6 @@ go test ./... -v -count=1
 - **Source Code:** Go implementation of Tasks 1–5, including unit tests.
 - **README:** Implementation details and testing instructions.
 - **Postman Collection:** Exported JSON collection containing API requests for testing all five tasks.
+
+### Postman Collection
+[View Entain CodeTest Collection](https://www.postman.com/skkoralagoda-info-7870778/workspace/entain-codetest-collection/collection/6ad54d94eb51006db22bdc43?action=share&creator=50419756)
