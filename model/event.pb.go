@@ -531,7 +531,7 @@ func (b0 SportEvent_builder) Build() *SportEvent {
 	return m0
 }
 
-// RacingEvent stores information specific to racing events.
+// RacingEvent stores information specific to racing events
 type RacingEvent struct {
 	state         protoimpl.MessageState `protogen:"hybrid.v1"`
 	RaceName      *OptionalString        `protobuf:"bytes,1,opt,name=RaceName,proto3" json:"RaceName,omitempty"`
@@ -683,6 +683,7 @@ type Market struct {
 	StartTime     *OptionalInt64         `protobuf:"bytes,3,opt,name=StartTime,proto3" json:"StartTime,omitempty"`
 	BettingStatus *OptionalBettingStatus `protobuf:"bytes,4,opt,name=BettingStatus,proto3" json:"BettingStatus,omitempty"`
 	Selections    []*Selection           `protobuf:"bytes,5,rep,name=Selections,proto3" json:"Selections,omitempty"`
+	ClosedAt      *OptionalInt64         `protobuf:"bytes,6,opt,name=ClosedAt,proto3" json:"ClosedAt,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -747,6 +748,13 @@ func (x *Market) GetSelections() []*Selection {
 	return nil
 }
 
+func (x *Market) GetClosedAt() *OptionalInt64 {
+	if x != nil {
+		return x.ClosedAt
+	}
+	return nil
+}
+
 func (x *Market) SetID(v string) {
 	x.ID = v
 }
@@ -765,6 +773,10 @@ func (x *Market) SetBettingStatus(v *OptionalBettingStatus) {
 
 func (x *Market) SetSelections(v []*Selection) {
 	x.Selections = v
+}
+
+func (x *Market) SetClosedAt(v *OptionalInt64) {
+	x.ClosedAt = v
 }
 
 func (x *Market) HasName() bool {
@@ -788,6 +800,13 @@ func (x *Market) HasBettingStatus() bool {
 	return x.BettingStatus != nil
 }
 
+func (x *Market) HasClosedAt() bool {
+	if x == nil {
+		return false
+	}
+	return x.ClosedAt != nil
+}
+
 func (x *Market) ClearName() {
 	x.Name = nil
 }
@@ -800,6 +819,10 @@ func (x *Market) ClearBettingStatus() {
 	x.BettingStatus = nil
 }
 
+func (x *Market) ClearClosedAt() {
+	x.ClosedAt = nil
+}
+
 type Market_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -808,6 +831,7 @@ type Market_builder struct {
 	StartTime     *OptionalInt64
 	BettingStatus *OptionalBettingStatus
 	Selections    []*Selection
+	ClosedAt      *OptionalInt64
 }
 
 func (b0 Market_builder) Build() *Market {
@@ -819,6 +843,7 @@ func (b0 Market_builder) Build() *Market {
 	x.StartTime = b.StartTime
 	x.BettingStatus = b.BettingStatus
 	x.Selections = b.Selections
+	x.ClosedAt = b.ClosedAt
 	return m0
 }
 
@@ -1272,7 +1297,7 @@ const file_event_proto_rawDesc = "" +
 	"RacingType\x18\x02 \x01(\v2\x15.model.OptionalStringR\n" +
 	"RacingType\x120\n" +
 	"\bDistance\x18\x03 \x01(\v2\x14.model.OptionalInt64R\bDistance\x12+\n" +
-	"\x05Venue\x18\x04 \x01(\v2\x15.model.OptionalStringR\x05Venue\"\xed\x01\n" +
+	"\x05Venue\x18\x04 \x01(\v2\x15.model.OptionalStringR\x05Venue\"\x9f\x02\n" +
 	"\x06Market\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\x12)\n" +
 	"\x04Name\x18\x02 \x01(\v2\x15.model.OptionalStringR\x04Name\x122\n" +
@@ -1280,7 +1305,8 @@ const file_event_proto_rawDesc = "" +
 	"\rBettingStatus\x18\x04 \x01(\v2\x1c.model.OptionalBettingStatusR\rBettingStatus\x120\n" +
 	"\n" +
 	"Selections\x18\x05 \x03(\v2\x10.model.SelectionR\n" +
-	"Selections\"\xb7\x01\n" +
+	"Selections\x120\n" +
+	"\bClosedAt\x18\x06 \x01(\v2\x14.model.OptionalInt64R\bClosedAt\"\xb7\x01\n" +
 	"\tSelection\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\tR\x02ID\x12)\n" +
 	"\x04Name\x18\x02 \x01(\v2\x15.model.OptionalStringR\x04Name\x12B\n" +
@@ -1341,14 +1367,15 @@ var file_event_proto_depIdxs = []int32{
 	9,  // 18: model.Market.StartTime:type_name -> model.OptionalInt64
 	1,  // 19: model.Market.BettingStatus:type_name -> model.OptionalBettingStatus
 	6,  // 20: model.Market.Selections:type_name -> model.Selection
-	7,  // 21: model.Selection.Name:type_name -> model.OptionalString
-	1,  // 22: model.Selection.BettingStatus:type_name -> model.OptionalBettingStatus
-	8,  // 23: model.Selection.Price:type_name -> model.OptionalDouble
-	24, // [24:24] is the sub-list for method output_type
-	24, // [24:24] is the sub-list for method input_type
-	24, // [24:24] is the sub-list for extension type_name
-	24, // [24:24] is the sub-list for extension extendee
-	0,  // [0:24] is the sub-list for field type_name
+	9,  // 21: model.Market.ClosedAt:type_name -> model.OptionalInt64
+	7,  // 22: model.Selection.Name:type_name -> model.OptionalString
+	1,  // 23: model.Selection.BettingStatus:type_name -> model.OptionalBettingStatus
+	8,  // 24: model.Selection.Price:type_name -> model.OptionalDouble
+	25, // [25:25] is the sub-list for method output_type
+	25, // [25:25] is the sub-list for method input_type
+	25, // [25:25] is the sub-list for extension type_name
+	25, // [25:25] is the sub-list for extension extendee
+	0,  // [0:25] is the sub-list for field type_name
 }
 
 func init() { file_event_proto_init() }
