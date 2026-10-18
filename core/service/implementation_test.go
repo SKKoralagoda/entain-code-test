@@ -15,7 +15,7 @@ import (
 )
 
 func TestService_IntegrationTest_NewEvent(t *testing.T) {
-	repo, err := repository.NewRedisRepository(context.Background(), "localhost:6379", "")
+	repo, err := repository.NewMongoRepository(context.Background(), "mongodb://localhost:27018")
 	assert.NoError(t, err)
 	defer repo.DeleteEventByID(context.Background(), "integration-test-1")
 	host := &service.Service{
